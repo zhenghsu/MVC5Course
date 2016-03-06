@@ -12,7 +12,7 @@ namespace MVC5Course.Controllers
     {
         FabricsEntities db = new FabricsEntities();
         // GET: EF
-        public ActionResult Index()
+        public ActionResult Index(bool? IsActive ,string keyword)
         {
         //    var Product = new Product()
         //            {
@@ -27,11 +27,23 @@ namespace MVC5Course.Controllers
             //var pkey = Product.ProductId;
             //var data = db.Product.ToList();
             //var data = db.Product.Where(p => p.ProductId == pkey).ToList();//多筆的集合型別
-            var data = db.Product.OrderByDescending(p => p.ProductId).Take(5);
-            foreach (var item in data)
+            //var data = db.Product.OrderByDescending(p => p.ProductId).Take(5);
+            var data = db.Product.OrderByDescending(p => p.ProductId).AsQueryable();
+            //IsActive = false;
+            if (IsActive.HasValue)
             {
-                item.Price= item.Price+1;
+                data = data.Where(p => p.Active.HasValue ? p.Active.Value == IsActive : false);
             }
+           // keyword="BM";
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                data = data.Where(p => p.ProductName.Contains(keyword)).Take(5);
+            }
+                
+            //    foreach (var item in data)
+            //{
+            //    item.Price= item.Price+1;
+            //}
             db.SaveChanges();
             return View(data);
         }
