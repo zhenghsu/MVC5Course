@@ -18,6 +18,7 @@ namespace MVC5Course.Controllers
         
         public ActionResult MemberProfile()
         {
+
             return View();
         }
         [HttpPost]
