@@ -7,24 +7,24 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
-    public class TestController : Controller
+    public class TestController : BaseController
     {
-        //
-        // GET: /Test/
         public ActionResult Index()
         {
             return View();
         }
-        
+
+        // Code Snippet Shortcut: mvcaction4
         public ActionResult MemberProfile()
         {
-
             return View();
         }
+
+        // Code Snippet Shortcut: mvcpostaction4
         [HttpPost]
         public ActionResult MemberProfile(MemberViewModel data)
         {
             return View();
-        }   
-	}
+        }
+    }
 }
