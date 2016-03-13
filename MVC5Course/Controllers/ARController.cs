@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
 namespace MVC5Course.Controllers
 {
     public class ARController : Controller
@@ -32,6 +31,7 @@ namespace MVC5Course.Controllers
                 "image/jpeg",
                 "Aili.jpg");
         }
+        
         public ActionResult FileTest2()
         {
             return File(
