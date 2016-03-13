@@ -13,13 +13,17 @@ namespace MVC5Course.Controllers
     public class ProductsController : BaseController
     {
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? ProductId,string Type)
         {
-            var data = repo.All();
+            var data = repo.All().Take(5);
             //var data = repo.Get超級複雜的資料集();
 
             //var repoOL = RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
-
+            ViewBag.type = Type;
+           if (ProductId.HasValue)
+           {
+                 ViewBag.SelectedProductId = ProductId.Value;
+           }
             return View(data);
         }
 
@@ -31,10 +35,15 @@ namespace MVC5Course.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = repo.Find(id.Value);
+
             if (product == null && product.IsDeleted)
             {
                 return HttpNotFound();
             }
+
+            ////ViewData["OrderLines"] = product.OrderLine.ToList();
+            //ViewBag.OrderLines = product.OrderLine.ToList();
+
             return View(product);
         }
 
@@ -128,5 +137,7 @@ namespace MVC5Course.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
     }
 }
