@@ -8,7 +8,6 @@ namespace MVC5Course.Controllers
 {
     public class NewLayoutController : Controller
     {
-        // GET: NewLayout
         public ActionResult Index()
         {
             return View();

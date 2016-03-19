@@ -43,5 +43,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @if (!IsSectionDefined("scripts"))
+    {
+        <script>console.log('Nothing');</script>
+    }
+
 </body>
 </html>

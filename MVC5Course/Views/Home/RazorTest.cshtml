@@ -1,20 +1,18 @@
 ﻿@model Int32[]
 
 @foreach (var i in Model)
-{     
+{
     @i
 }
 
-
-@foreach (var l in Model)
+@foreach (var i in Model)
 {
-    @(l+" ")
+    @(i+" ")
 }
 
-
 <ul>
-@foreach (var l in Model)
+@foreach (var i in Model)
 {
-  <li>@l</li>
+    <li>@i</li>
 }
 </ul>

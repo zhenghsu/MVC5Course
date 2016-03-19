@@ -13,18 +13,50 @@ namespace MVC5Course.Controllers
     public class ProductsController : BaseController
     {
         // GET: Products
-        public ActionResult Index(int? ProductId,string Type)
+        public ActionResult Index(int? ProductId, string type, bool? isActive)
         {
-            var data = repo.All().Take(5);
+            var data = repo.All(true);
             //var data = repo.Get超級複雜的資料集();
 
+            if (isActive.HasValue)
+            {
+                data = data.Where(p => p.Active.HasValue && p.Active.Value == isActive.Value);
+            }
+
+            var items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Value = "true", Text = "有效" });
+            items.Add(new SelectListItem() { Value = "false", Text = "無效" });
+            ViewData["isActive"] = new SelectList(items, "Value", "Text");
+
             //var repoOL = RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
-            ViewBag.type = Type;
-           if (ProductId.HasValue)
-           {
-                 ViewBag.SelectedProductId = ProductId.Value;
-           }
+
+            ViewBag.type = type;
+
+            if (ProductId.HasValue)
+            {
+                ViewBag.SelectedProductId = ProductId.Value;
+            }
+
             return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult Index(IList<Products批次更新VIewModel> data)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    var product = repo.Find(item.ProductId);
+                    product.Stock = item.Stock;
+                    product.Price = item.Price;
+                }
+
+                repo.UnitOfWork.Commit();
+                return RedirectToAction("Index");
+            }
+
+            return View(repo.All().Take(5));
         }
 
         // GET: Products/Details/5
@@ -90,13 +122,16 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
+            IProduct product = repo.Find(id);
+
+            if (TryUpdateModel<IProduct>(product))
             {
-                var db = (FabricsEntities)repo.UnitOfWork.Context;
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.UnitOfWork.Commit();
+
+                TempData["ProductsEditDoneMsg"] = "商品編輯成功";
+
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -137,7 +172,5 @@ namespace MVC5Course.Controllers
             }
             base.Dispose(disposing);
         }
-
-       
     }
 }
