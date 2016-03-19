@@ -5,18 +5,20 @@
 }
 
 <h2>Index</h2>
-
+@using (Html.BeginForm("Index","Products",FormMethod.Get))
+{
 <p>
     @Html.ActionLink("Create New", "Create")
 
-    @Html.DropDownList("isActive", "--是否有效--")
+    @Html.DropDownList("isActive", null, "--是否有效--", new { onchange="this.form.submit();"})
+    @Html.TextBox("keyword", null, new { onchange = "this.form.submit();" })
 
     @if (!String.IsNullOrEmpty(Convert.ToString(TempData["ProductsEditDoneMsg"])))
     {
         <h3>@TempData["ProductsEditDoneMsg"]</h3>
     }
 </p>
-
+}
 @using (Html.BeginForm())
 {
 

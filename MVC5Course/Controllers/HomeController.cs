@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.ActionFilters;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,13 +11,13 @@ namespace MVC5Course.Controllers
     [紀錄Action的執行時間]
     public class HomeController : BaseController
     {
-        [共用的ViewBag資料共享於部分HomeController動作方法]
+        [共用的ViewBag共享於部分HomeController動作方法]
         public ActionResult Index()
         {
             return View();
         }
 
-        [共用的ViewBag資料共享於部分HomeController動作方法]
+        [共用的ViewBag共享於部分HomeController動作方法]
         public ActionResult About()
         {
             return View();

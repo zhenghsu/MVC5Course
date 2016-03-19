@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\共用的ViewBag共享於部分HomeController動作方法Attribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ARController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -197,12 +199,17 @@
     <Compile Include="Controllers\OrderLinesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="ActionFilters\共用的ViewBag資料共享於部分HomeController動作方法Attribute.cs" />
     <Compile Include="ActionFilters\紀錄Action的執行時間Attribute.cs" />
+    <Compile Include="Controllers\共用的ViewBag資料共享於部分HomeController動作方法.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\vwClientOrder.cs">
+      <DependentUpon>Fabrics.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\必須為一個空白字元Attribute.cs" />
+    <Compile Include="Models\Products批次更新VIewModel.cs" />
     <Compile Include="Models\Client.cs">
       <DependentUpon>Fabrics.tt</DependentUpon>
     </Compile>
@@ -286,15 +293,11 @@
     <Compile Include="Models\ProductRepository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Products批次更新VIewModel.cs" />
     <Compile Include="Models\RepositoryHelper.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RepositoryIQueryableExtensions.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vwClientOrder.cs">
-      <DependentUpon>Fabrics.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vwClientOrder.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
@@ -302,16 +305,11 @@
     <Compile Include="Models\vwClientOrderRepository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\必須為一個空白字元Attribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Elmah.Errors\ElmahErrors.txt" />
-    <Content Include="App_Data\Fabrics.mdf" />
-    <Content Include="App_Data\Fabrics_log.ldf">
-      <DependentUpon>Fabrics.mdf</DependentUpon>
-    </Content>
     <Content Include="calendar.html" />
     <Content Include="chart.html" />
     <Content Include="Content\alphago-logo.png" />
@@ -1132,7 +1130,9 @@
     <Content Include="tasks.html" />
     <Content Include="typography.html" />
     <Content Include="ui.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1193,6 +1193,17 @@
     <Content Include="Views\OrderLines\Details.cshtml" />
     <Content Include="Views\OrderLines\Edit.cshtml" />
     <Content Include="Views\OrderLines\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Product.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\性別.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\星星.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\性別.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
