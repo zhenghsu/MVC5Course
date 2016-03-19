@@ -1,13 +1,18 @@
 ﻿@model MVC5Course.Models.Client
 
-@{
+@{ 
+    if (IsAjax)
+    {
+        Layout = null;
+    }
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())*@
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "main" }))
 {
     @Html.AntiForgeryToken()
     

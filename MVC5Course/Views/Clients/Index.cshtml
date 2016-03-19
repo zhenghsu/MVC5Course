@@ -1,13 +1,19 @@
 ﻿@model IEnumerable<MVC5Course.Models.Client>
 
 @{
+    if (IsAjax)
+    {
+        Layout = null;
+    }
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    
+    @Ajax.ActionLink("Create New", "Create",new AjaxOptions() { UpdateTargetId = "Details" }) 
+
 </p>
 <table class="table">
     <tr>
@@ -54,11 +60,12 @@
         </td>
      
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+            @Ajax.ActionLink("Edit", "Edit", new { id = item.ClientId }, new AjaxOptions() { UpdateTargetId = "Details" }) |
+            @Ajax.ActionLink("Details", "Details", new { id = item.ClientId }, new AjaxOptions() { UpdateTargetId="Details"}) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ClientId }, new AjaxOptions() { UpdateTargetId = "Details" })
         </td>
     </tr>
 }
 
 </table>
+<div id="Details" ></div>

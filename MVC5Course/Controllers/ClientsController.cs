@@ -19,6 +19,7 @@ namespace MVC5Course.Controllers
         {
             var client = db.Client.Include(c => c.Occupation);
             return View(client.ToList().Take(5));
+            //return View("Index",client.ToList().Take(5));
         }
 
         // GET: Clients/Details/5
@@ -91,7 +92,11 @@ namespace MVC5Course.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
-            return View(client);
+            //return View(client);
+            //return this.Index(); //要把index改一下
+            return View("Index", db.Client.Include(c => c.OccupationId).Take(5));
+            //return View( db.Client.Include(c => c.OccupationId).Take(5)); 錯誤 因為回傳多筆,但是edit的action是只傳一筆,因此要多傳action name
+
         }
 
         // GET: Clients/Delete/5
